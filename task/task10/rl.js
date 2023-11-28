@@ -13,17 +13,21 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+const dirPath = "./data";
+const filePath = "./data/contacts.json";
+
+!fs.existsSync(dirPath) ? fs.mkdirSync(dirPath) : "";
+!fs.existsSync(filePath) ? fs.writeFileSync(filePath, "[]", "utf-8") : "";
+
 // membuat folder data jika belum ada dan memasukan data json yang sudah diinputkan ke dalam file contacts.json
 rl.question("Masukkan nama Anda: ", (nama) => {
   rl.question("Masukkan nomor HP Anda: ", (noHP) => {
     const contact = { nama, noHP };
-    const file = fs.readFileSync("contacts.json", "utf-8");
+    const file = fs.readFileSync(filePath, "utf-8");
     const contacts = JSON.parse(file);
 
     contacts.push(contact);
-
-    fs.writeFile("contacts.json", JSON.stringify(contacts, null, 2), callback);
-
+    fs.writeFile(filePath, JSON.stringify(contacts, null, 2), callback);
     rl.close();
   });
 });
