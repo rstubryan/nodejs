@@ -7,11 +7,6 @@ const callback = (err) =>
     ? console.error("Terjadi kesalahan:", err)
     : console.log("File berhasil ditulis.");
 
-const pesan = (err) =>
-  err
-    ? console.error("Terjadi kesalahan:", err)
-    : console.log("Terima kasih sudah memasukan data.");
-
 // interface dari readline
 const rl = readline.createInterface({
   input: process.stdin,
@@ -41,12 +36,8 @@ const main = async () => {
 
   contacts.push(contact);
 
-  fs.writeFileSync(
-    "data/contacts.json",
-    JSON.stringify(contacts, null, 2),
-    callback
-  );
-  pesan();
+  fs.writeFileSync("data/contacts.json", JSON.stringify(contacts, null, 2));
+  callback();
   rl.close();
 };
 
